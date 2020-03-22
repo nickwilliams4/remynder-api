@@ -18,9 +18,7 @@ app.get('/', (req, res) => {
   res.send('Hello, world!')
 })
 
-app.post('/AddNote', (req, res) => {
-  res.send('Note Added')
-})
+app.use('/NotePage', notesRouter)
 
 app.use(function errorHandler(error, req, res, next) {
      let response
