@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
   res.send('Hello, world!')
 })
 
-app.use('/NotePage', notesRouter)
+app.use('/notes', notesRouter)
 
 app.use(function errorHandler(error, req, res, next) {
      let response

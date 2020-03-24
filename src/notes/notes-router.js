@@ -10,8 +10,8 @@ const serializeNote = note => ({
   id: note.id,
   title: note.title,
   content: xss(note.content),
-  date_published: note.date_published,
-  folder_id: note.folder_id,
+  created: note.created,
+  remynder: note.remynder
 })
 
 notesRouter
@@ -25,9 +25,9 @@ notesRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { title, content, folder_id } = req.body
+    const { title, content, remynder } = req.body
     console.log("POST TO /NOTES")
-    const newNote = { title, content, folder_id }
+    const newNote = { title, content, remynder }
 
     for (const [key, value] of Object.entries(newNote))
       if (value == null)
@@ -83,14 +83,14 @@ notesRouter
       .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const { content, date_published } = req.body
-    const noteToUpdate = { content, date_published }
+    const { content, created, remynder } = req.body
+    const noteToUpdate = { content, created, remynder }
 
     const numberOfValues = Object.values(noteToUpdate).filter(Boolean).length
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must contain either 'content' or 'date_published'`
+          message: `Request body must contain either 'content' or 'created`
         }
       })
 
