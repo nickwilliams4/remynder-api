@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 const xss = require('xss')
 const NotesService = require('./notes-service')
+const { requireAuth } = require('../middleware/jwt-auth')
 
 const notesRouter = express.Router()
 const jsonParser = express.json()
@@ -24,7 +25,7 @@ notesRouter
       })
       .catch(next)
   })
-  .post(jsonParser, (req, res, next) => {
+  .post(requireAuth, jsonParser, (req, res, next) => {
     const { title, content, remynder } = req.body
     console.log("POST TO /NOTES")
     const newNote = { title, content, remynder }
@@ -34,6 +35,7 @@ notesRouter
         return res.status(400).json({
           error: { message: `Missing '${key}' in request body` }
         })
+      newNote.user_id = req.user.id
 
     NotesService.insertNote(
       req.app.get('db'),
@@ -53,6 +55,7 @@ notesRouter
 
 notesRouter
   .route('/:note_id')
+  .all(requireAuth)
   .all((req, res, next) => {
     NotesService.getById(
       req.app.get('db'),
