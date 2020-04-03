@@ -12,7 +12,8 @@ const serializeNote = note => ({
   title: note.title,
   content: xss(note.content),
   created: note.created,
-  remynder: note.remynder
+  remynder: note.remynder,
+  author_id: note.author_id
 })
 
 notesRouter
@@ -35,7 +36,7 @@ notesRouter
         return res.status(400).json({
           error: { message: `Missing '${key}' in request body` }
         })
-      newNote.user_id = req.user.id
+      newNote.author_id = req.user.id
 
     NotesService.insertNote(
       req.app.get('db'),
