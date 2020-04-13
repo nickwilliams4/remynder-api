@@ -3,6 +3,7 @@ const express = require('express')
 const xss = require('xss')
 const NotesService = require('./notes-service')
 const { requireAuth } = require('../middleware/jwt-auth')
+const moment = require('moment')
 
 const notesRouter = express.Router()
 const jsonParser = express.json()
@@ -18,9 +19,9 @@ const serializeNote = note => ({
 
 notesRouter
   .route('/')
-  .get((req, res, next) => {
+  .get(requireAuth, (req, res, next) => {
     const knexInstance = req.app.get('db')
-    NotesService.getAllNotes(knexInstance)
+    NotesService.getAllNotes(knexInstance, req.user.id)
       .then(notes => {
         res.json(notes.map(serializeNote))
       })
@@ -37,6 +38,10 @@ notesRouter
           error: { message: `Missing '${key}' in request body` }
         })
       newNote.author_id = req.user.id
+
+     const remynder_hours = parseInt(remynder);
+
+    newNote.next_remynder = moment().utc().add(remynder_hours, 'hours').unix();
 
     NotesService.insertNote(
       req.app.get('db'),

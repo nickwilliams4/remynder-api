@@ -1,0 +1,6 @@
+ALTER TABLE notes 
+  DROP COLUMN remynder;
+
+ALTER TABLE notes
+  ADD COLUMN remynder INTEGER NOT NULL,
+  ADD COLUMN next_remynder INTEGER NOT NULL;

@@ -10,6 +10,11 @@ const UsersService = {
       .first()
       .then(user => !!user)
   },
+  getUserByID(db, id) {
+    return db('remynder_users')
+      .where('id', id)
+      .first();
+  },
   insertUser(db, newUser) {
     return db
       .insert(newUser)

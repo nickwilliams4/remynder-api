@@ -1,6 +1,14 @@
+const moment = require('moment')
+
 const NotesService = {
-  getAllNotes(knex) {
-    return knex.select('*').from('notes')
+  getAllNotes(knex, user_id) {
+    return knex.select('*').from('notes').where('author_id', user_id)
+    
+  },
+
+  getAllPastDueNotes(knex) {
+    const currentUTCTimestamp = moment().utc().unix();
+    return knex.select('*').from('notes').where('next_remynder', '<', currentUTCTimestamp)
   },
 
   insertNote(knex, newNote) {
@@ -28,9 +36,12 @@ const NotesService = {
   },
 
   updateNote(knex, id, newNoteFields) {
+    console.log('id and fields', id, newNoteFields);
     return knex('notes')
-      .where({ id })
-      .update(newNoteFields)
+      .update({...newNoteFields})
+      .where('id', id)
+      .then(u => console.log(u))
+      .catch(e => console.log(e));
   },
 }
 
