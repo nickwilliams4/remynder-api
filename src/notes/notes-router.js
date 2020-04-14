@@ -40,9 +40,12 @@ notesRouter
       newNote.author_id = req.user.id
 
      const remynder_hours = parseInt(remynder);
-
+        if (remynder_hours == 5) {
+          newNote.next_remynder = moment().utc().add(remynder_hours, 'minutes').unix();
+        }
+        else {
     newNote.next_remynder = moment().utc().add(remynder_hours, 'hours').unix();
-
+        }
     NotesService.insertNote(
       req.app.get('db'),
       newNote
