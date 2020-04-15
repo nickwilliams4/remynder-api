@@ -7,7 +7,7 @@ CREATE TABLE remynder_users (
   password TEXT NOT NULL,
   nickname TEXT,
   date_created TIMESTAMP DEFAULT now() NOT NULL,
-  date_modified TIMESTAMP
+  date_modified TIMESTAMP,
 );
 
 ALTER TABLE notes

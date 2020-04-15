@@ -2,5 +2,5 @@ ALTER TABLE notes
   DROP COLUMN date_published;
 
 ALTER TABLE notes
-  ADD COLUMN created TIMESTAMP DEFAULT now() NOT NULL;
+  ADD COLUMN created TIMESTAMP DEFAULT now() NOT NULL,
   ADD COLUMN remynder TEXT NOT NULL;
