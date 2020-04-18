@@ -5,6 +5,10 @@ const UsersService = require('./users-service')
 const usersRouter = express.Router()
 const jsonBodyParser = express.json()
 
+usersRouter.get('/', (req, res) => {
+  res.send('Hello, world!')
+})
+
 usersRouter
   .post('/', jsonBodyParser, (req, res, next) => {
     const { password, user_name, full_name } = req.body

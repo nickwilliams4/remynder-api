@@ -17,12 +17,14 @@ const serializeNote = note => ({
   author_id: note.author_id
 })
 
+
 notesRouter
   .route('/')
   .get(requireAuth, (req, res, next) => {
     const knexInstance = req.app.get('db')
     NotesService.getAllNotes(knexInstance, req.user.id)
       .then(notes => {
+        res.send('Hello, world!')
         res.json(notes.map(serializeNote))
       })
       .catch(next)
