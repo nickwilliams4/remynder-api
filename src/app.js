@@ -29,6 +29,10 @@ app.get('/users', (req, res) => {
   res.send('Hello, users!')
 })
 
+app.get('/ReturningUser', (req, res) => {
+  res.send('Hello, ReturningUser!')
+})
+
 app.use('/notes', notesRouter)
 app.use('/ReturningUser', authRouter)
 app.use('/users', usersRouter)
