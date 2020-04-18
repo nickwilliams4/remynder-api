@@ -21,6 +21,14 @@ app.get('/', (req, res) => {
   res.send('Hello, world!')
 })
 
+app.get('/notes', (req, res) => {
+  res.send('Hello, notes!')
+})
+
+app.get('/users', (req, res) => {
+  res.send('Hello, users!')
+})
+
 app.use('/notes', notesRouter)
 app.use('/ReturningUser', authRouter)
 app.use('/users', usersRouter)
