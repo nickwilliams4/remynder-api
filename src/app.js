@@ -17,22 +17,6 @@ app.use(helmet())
 app.use(cors())
 app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.send('Hello, world!')
-})
-
-app.get('/notes', (req, res) => {
-  res.send('Hello, notes!')
-})
-
-app.get('/users', (req, res) => {
-  res.send('Hello, users!')
-})
-
-app.get('/ReturningUser', (req, res) => {
-  res.send('Hello, ReturningUser!')
-})
-
 app.use('/notes', notesRouter)
 app.use('/ReturningUser', authRouter)
 app.use('/users', usersRouter)
