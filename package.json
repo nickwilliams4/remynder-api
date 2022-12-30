@@ -27,7 +27,7 @@
     "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.12",
-    "mocha": "^7.1.1",
+    "mocha": "^10.2.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "node-cron": "^2.0.3",
